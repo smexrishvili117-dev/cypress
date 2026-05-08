@@ -17,9 +17,9 @@ describe('Account Management', () => {
 
   it('should edit address', () => {
     cy.visit('https://automationteststore.com/index.php?rt=account/address')
-    cy.contains('Edit').first().click()
-    cy.get('#AddressFrm_firstname').clear().type('NewFirstName')
-    cy.get('#AddressFrm_lastname').clear().type('NewLastName')
+    cy.get('a[href*="address/edit"]').first().click({force: true})
+    cy.get('#AddressFrm_firstname').clear().type('Salome')
+    cy.get('#AddressFrm_lastname').clear().type('Mekrishvili')
     cy.get('#AddressFrm_address_1').clear().type('123 Test Street')
     cy.get('#AddressFrm_city').clear().type('Tbilisi')
     cy.get('button[title="Continue"]').click()
@@ -28,6 +28,7 @@ describe('Account Management', () => {
 
   it('should change password', () => {
     cy.visit('https://automationteststore.com/index.php?rt=account/password')
+    cy.get('#AccountFrm_current_password').type('salome02042003')
     cy.get('#AccountFrm_password').type('NewPassword123')
     cy.get('#AccountFrm_confirm').type('NewPassword123')
     cy.get('button[title="Continue"]').click()
@@ -36,6 +37,7 @@ describe('Account Management', () => {
     cy.login('salome', 'NewPassword123')
     cy.url().should('include', 'account/account')
     cy.visit('https://automationteststore.com/index.php?rt=account/password')
+    cy.get('#AccountFrm_current_password').type('NewPassword123')
     cy.get('#AccountFrm_password').type('salome02042003')
     cy.get('#AccountFrm_confirm').type('salome02042003')
     cy.get('button[title="Continue"]').click()
