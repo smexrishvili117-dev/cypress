@@ -14,7 +14,7 @@ describe('Account Management', () => {
   })
   it('should edit address', () => {
     cy.visit('https://automationteststore.com/index.php?rt=account/address')
-    cy.contains('Edit').first().click({force: true})
+    cy.get('a[href*="address"]').contains('Edit').click({force: true})
     cy.get('#AddressFrm_firstname').clear().type('Salome')
     cy.get('#AddressFrm_lastname').clear().type('Mekrishvili')
     cy.get('#AddressFrm_address_1').clear().type('123 Test Street')
@@ -24,62 +24,18 @@ describe('Account Management', () => {
   })
   it('should change password', () => {
     cy.visit('https://automationteststore.com/index.php?rt=account/password')
-    cy.get('#AccountFrm_current_password').type('salome02042003')
-    cy.get('#AccountFrm_password').type('NewPassword123')
-    cy.get('#AccountFrm_confirm').type('NewPassword123')
+    cy.get('input[name="current_password"]').type('salome02042003')
+    cy.get('input[name="password"]').type('NewPassword123')
+    cy.get('input[name="confirm"]').type('NewPassword123')
     cy.get('button[title="Continue"]').click()
     cy.contains('Your password has been successfully updated.').should('be.visible')
     cy.visit('https://automationteststore.com/index.php?rt=account/logout')
     cy.login('salome', 'NewPassword123')
     cy.url().should('include', 'account/account')
     cy.visit('https://automationteststore.com/index.php?rt=account/password')
-    cy.get('#AccountFrm_current_password').type('NewPassword123')
-    cy.get('#AccountFrm_password').type('salome02042003')
-    cy.get('#AccountFrm_confirm').type('salome02042003')
-    cy.get('button[title="
-git add .
-git commit -m "fix address edit selector"
-git push origin feature/account-tests
-
-cat > cypress/e2e/account.cy.js << 'EOF'
-describe('Account Management', () => {
-  beforeEach(() => {
-    cy.login('salome', 'salome02042003')
-  })
-  it('should edit account details and verify changes are saved', () => {
-    cy.visit('https://automationteststore.com/index.php?rt=account/edit')
-    cy.get('#AccountFrm_firstname').clear().type('Salome')
-    cy.get('#AccountFrm_lastname').clear().type('Mekrishvili')
-    cy.get('button[title="Continue"]').click()
-    cy.contains('Your account has been successfully updated.').should('be.visible')
-    cy.visit('https://automationteststore.com/index.php?rt=account/edit')
-    cy.get('#AccountFrm_firstname').should('have.value', 'Salome')
-    cy.get('#AccountFrm_lastname').should('have.value', 'Mekrishvili')
-  })
-  it('should edit address', () => {
-    cy.visit('https://automationteststore.com/index.php?rt=account/address')
-    cy.get('a[href*="address/edit"]').first().click({force: true})
-    cy.get('#AddressFrm_firstname').clear().type('Salome')
-    cy.get('#AddressFrm_lastname').clear().type('Mekrishvili')
-    cy.get('#AddressFrm_address_1').clear().type('123 Test Street')
-    cy.get('#AddressFrm_city').clear().type('Tbilisi')
-    cy.get('button[title="Continue"]').click()
-    cy.contains('Your address has been successfully').should('be.visible')
-  })
-  it('should change password', () => {
-    cy.visit('https://automationteststore.com/index.php?rt=account/password')
-    cy.get('#AccountFrm_current_password').type('salome02042003')
-    cy.get('#AccountFrm_password').type('NewPassword123')
-    cy.get('#AccountFrm_confirm').type('NewPassword123')
-    cy.get('button[title="Continue"]').click()
-    cy.contains('Your password has been successfully updated.').should('be.visible')
-    cy.visit('https://automationteststore.com/index.php?rt=account/logout')
-    cy.login('salome', 'NewPassword123')
-    cy.url().should('include', 'account/account')
-    cy.visit('https://automationteststore.com/index.php?rt=account/password')
-    cy.get('#AccountFrm_current_password').type('NewPassword123')
-    cy.get('#AccountFrm_password').type('salome02042003')
-    cy.get('#AccountFrm_confirm').type('salome02042003')
+    cy.get('input[name="current_password"]').type('NewPassword123')
+    cy.get('input[name="password"]').type('salome02042003')
+    cy.get('input[name="confirm"]').type('salome02042003')
     cy.get('button[title="Continue"]').click()
   })
 })
