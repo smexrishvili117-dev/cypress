@@ -1,6 +1,6 @@
 describe('Account Management', () => {
   beforeEach(() => {
-    cy.login('salome', 'NewPassword123')
+    cy.login('salome', 'salome02042003')
   })
   it('should edit account details and verify changes are saved', () => {
     cy.visit('https://automationteststore.com/index.php?rt=account/edit')
@@ -24,10 +24,18 @@ describe('Account Management', () => {
   })
   it('should change password', () => {
     cy.visit('https://automationteststore.com/index.php?rt=account/password')
+    cy.get('input[name="current_password"]').type('salome02042003')
+    cy.get('input[name="password"]').type('NewPassword123')
+    cy.get('input[name="confirm"]').type('NewPassword123')
+    cy.get('button[title="Continue"]').click()
+    cy.contains('Your password has been successfully updated.').should('be.visible')
+    cy.visit('https://automationteststore.com/index.php?rt=account/logout')
+    cy.login('salome', 'NewPassword123')
+    cy.url().should('include', 'account/account')
+    cy.visit('https://automationteststore.com/index.php?rt=account/password')
     cy.get('input[name="current_password"]').type('NewPassword123')
     cy.get('input[name="password"]').type('salome02042003')
     cy.get('input[name="confirm"]').type('salome02042003')
     cy.get('button[title="Continue"]').click()
-    cy.contains('Your password has been successfully updated.').should('be.visible')
   })
 })
