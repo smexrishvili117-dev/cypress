@@ -14,7 +14,7 @@ describe('Account Management', () => {
   })
   it('should edit address', () => {
     cy.visit('https://automationteststore.com/index.php?rt=account/address')
-    cy.get('a[href*="address"]').contains('Edit').click({force: true})
+    cy.get('a[href*="address"]').first().click({force: true})
     cy.get('#AddressFrm_firstname').clear().type('Salome')
     cy.get('#AddressFrm_lastname').clear().type('Mekrishvili')
     cy.get('#AddressFrm_address_1').clear().type('123 Test Street')
