@@ -1,4 +1,6 @@
 Cypress.Commands.add('login', (username, password) => {
+  cy.clearCookies()
+  cy.clearLocalStorage()
   cy.visit('https://automationteststore.com/index.php?rt=account/login')
   cy.get('#loginFrm_loginname').clear().type(username)
   cy.get('#loginFrm_password').clear().type(password)
