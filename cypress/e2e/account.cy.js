@@ -7,12 +7,12 @@ describe('Account Management', () => {
   it('should edit account details and verify changes are saved', () => {
     cy.visit('https://automationteststore.com/index.php?rt=account/edit')
     cy.get('#AccountFrm_firstname').clear().type('NewName')
-    cy.get('#AccountFrm_lastname').clear().type('NewLastname')
+    cy.get('#AccountFrm_lastname').clear().type('Mekrishvili')
     cy.get('button[title="Continue"]').click()
     cy.contains('Your account has been successfully updated.').should('be.visible')
     cy.visit('https://automationteststore.com/index.php?rt=account/edit')
     cy.get('#AccountFrm_firstname').should('have.value', 'NewName')
-    cy.get('#AccountFrm_lastname').should('have.value', 'NewLastname')
+    cy.get('#AccountFrm_lastname').should('have.value', 'Mekrishvili')
   })
 
   it('should edit address', () => {
