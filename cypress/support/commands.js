@@ -1,4 +1,4 @@
-// ძველი login command
+// login - automationteststore
 Cypress.Commands.add('login', (username, password) => {
   cy.visit('https://automationteststore.com/index.php?rt=account/login')
   cy.get('#loginFrm_loginname').should('be.visible').clear().type(username, { delay: 100 })
@@ -7,7 +7,7 @@ Cypress.Commands.add('login', (username, password) => {
   cy.url({ timeout: 15000 }).should('include', 'account/account')
 })
 
-// რეგისტრაციის command
+// register - automationexercise
 Cypress.Commands.add('registerUser', (user) => {
   cy.get('[data-qa="signup-name"]').type(user.name)
   cy.get('[data-qa="signup-email"]').type(user.email)
@@ -30,7 +30,7 @@ Cypress.Commands.add('registerUser', (user) => {
   cy.get('[data-qa="create-account"]').click()
 })
 
-// ლოგინის command
+// login - automationexercise
 Cypress.Commands.add('loginUser', (email, password) => {
   cy.get('[data-qa="login-email"]').type(email)
   cy.get('[data-qa="login-password"]').type(password)
